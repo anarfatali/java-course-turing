@@ -3,8 +3,8 @@ package az.edu.turing.module01.fop_projects;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class GuessTheNumber {
-    void main() {
+public class NumberGuessingGame {
+    public static void main(String[] args) {
         System.out.println("Let the game begin!");
         System.out.print("Enter your name: ");
 
@@ -13,20 +13,22 @@ public class GuessTheNumber {
         play(sc, name);
     }
 
-    public static void reverse(int[] array) {
-        int n = array.length;
-        for (int i = 0; i < n / 2; i++) {
-            int temp = array[i];
-            array[i] = array[n - i - 1];
-            array[n - i - 1] = temp;
+    public static void print(int[] guessedNumbers, int count) {
+        for (int i = count-1; i > 0; i--) {
+            System.out.print(guessedNumbers[i] + " ");
         }
     }
 
     public static int getInput(Scanner scanner) {
         while (true) {
-            System.out.print("Enter a number: ");
+            System.out.print("Enter a number(1-100): ");
             if (scanner.hasNextInt()) {
-                return scanner.nextInt();
+                int number = scanner.nextInt();
+                if (number > 0 && number < 100) {
+                    return number;
+                } else {
+                    System.out.println("Invalid input! Enter a number between 1 and 100");
+                }
             } else {
                 System.out.println("Please enter a valid number.");
                 scanner.next();
@@ -40,16 +42,11 @@ public class GuessTheNumber {
         int[] guessedNumbers = new int[100];
         while (true) {
             int userNum = getInput(scanner);
-            guessedNumbers = Arrays.copyOf(guessedNumbers, count + 1);
             guessedNumbers[count] = userNum;
             count++;
 
-            Arrays.sort(guessedNumbers);
-            reverse(guessedNumbers);
-
             if (randomNum == userNum) {
                 System.out.println("Congratulations, " + name);
-                System.out.println("Your guessed numbers : " + Arrays.toString(guessedNumbers));
                 break;
             } else if (randomNum > userNum) {
                 System.out.println("Your number is too small. Please, try again.");
@@ -57,5 +54,7 @@ public class GuessTheNumber {
                 System.out.println("Your number is too big. Please, try again.");
             }
         }
+        Arrays.sort(guessedNumbers, 0, count);
+        print(guessedNumbers, count);
     }
 }

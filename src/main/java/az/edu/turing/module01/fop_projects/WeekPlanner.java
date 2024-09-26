@@ -14,11 +14,11 @@ public class WeekPlanner {
             if (line.startsWith("change")) {
                 String[] divisions = line.split(" ");
                 String day = divisions[1];
-                changeTasks(scanner, schedule, divisions[1]);
+                changeTask(scanner, schedule, divisions[1]);
             } else if (line.equalsIgnoreCase("exit")) {
                 System.exit(0);
             } else {
-                printTasks(schedule, line);
+                printTask(schedule, line);
             }
         }
     }
@@ -42,7 +42,7 @@ public class WeekPlanner {
         return schedule;
     }
 
-    public static void printTasks(String[][] schedule, String day) {
+    public static void printTask(String[][] schedule, String day) {
         int dayIndex = getDayIndex(day);
         if (dayIndex == -1) {
             System.out.println("Sorry, I don't understand you, please try again.");
@@ -51,7 +51,7 @@ public class WeekPlanner {
         }
     }
 
-    public static void changeTasks(Scanner scanner, String[][] schedule, String day) {
+    public static void changeTask(Scanner scanner, String[][] schedule, String day) {
         int dayIndex = getDayIndex(day);
         if (dayIndex == -1) {
             System.out.println("Sorry, I don't understand you, please try again.");
@@ -64,30 +64,22 @@ public class WeekPlanner {
 
     public static int getDayIndex(String day) {
         switch (day) {
-            case "sunday" -> {
+            case "sunday":
                 return 0;
-            }
-            case "monday" -> {
+            case "monday":
                 return 1;
-            }
-            case "tuesday" -> {
+            case "tuesday":
                 return 2;
-            }
-            case "wednesday" -> {
+            case "wednesday":
                 return 3;
-            }
-            case "thursday" -> {
+            case "thursday":
                 return 4;
-            }
-            case "friday" -> {
+            case "friday":
                 return 5;
-            }
-            case "saturday" -> {
+            case "saturday":
                 return 6;
-            }
-            default -> {
+            default:
                 return -1;
-            }
         }
     }
 }
