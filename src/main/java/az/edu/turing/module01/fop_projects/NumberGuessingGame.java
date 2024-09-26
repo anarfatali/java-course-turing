@@ -14,7 +14,10 @@ public class NumberGuessingGame {
     }
 
     public static void print(int[] guessedNumbers, int count) {
-        for (int i = count-1; i > 0; i--) {
+        if (guessedNumbers.length == 0) {
+            return;
+        }
+        for (int i = count - 1; i >= 0; i--) {
             System.out.print(guessedNumbers[i] + " ");
         }
     }
@@ -42,8 +45,7 @@ public class NumberGuessingGame {
         int[] guessedNumbers = new int[100];
         while (true) {
             int userNum = getInput(scanner);
-            guessedNumbers[count] = userNum;
-            count++;
+            guessedNumbers[count++] = userNum;
 
             if (randomNum == userNum) {
                 System.out.println("Congratulations, " + name);
