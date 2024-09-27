@@ -14,9 +14,6 @@ public class NumberGuessingGame {
     }
 
     public static void print(int[] guessedNumbers, int count) {
-        if (guessedNumbers.length == 0) {
-            return;
-        }
         for (int i = count - 1; i >= 0; i--) {
             System.out.print(guessedNumbers[i] + " ");
         }

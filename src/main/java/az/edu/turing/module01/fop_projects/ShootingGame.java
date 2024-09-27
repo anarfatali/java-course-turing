@@ -10,8 +10,8 @@ public class ShootingGame {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            int row = getInput(scanner, "row", 5);
-            int col = getInput(scanner, "column", 5);
+            int row = getInput(scanner, "row between 1-5", 5);
+            int col = getInput(scanner, "column between 1-5", 5);
 
             if (randomTarget[0] == row && randomTarget[1] == col) {
                 board[row][col] = 'x';
