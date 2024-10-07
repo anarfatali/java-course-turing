@@ -1,6 +1,7 @@
 package az.edu.turing.linkedlist;
 
 public class Solution {
+
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode head = new ListNode(0);
         ListNode cur = head;

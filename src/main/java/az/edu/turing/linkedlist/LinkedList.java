@@ -35,7 +35,7 @@ public class LinkedList<T> {
         size++;
     }
 
-    public Optional<Object> removeHead() {
+    public Optional<T> removeHead() {
         if (head == null) {
             return Optional.empty();
         }
@@ -43,7 +43,7 @@ public class LinkedList<T> {
         T removed = head.value;
         head = head.next;
 
-        if (head == null) {
+        if (size == 0) {
             tail = null;
         }
 
@@ -51,7 +51,7 @@ public class LinkedList<T> {
         return Optional.ofNullable(removed);
     }
 
-    public Optional<Object> removeTail() {
+    public Optional<T> removeTail() {
         if (tail == null) {
             return Optional.empty();
         }
@@ -112,7 +112,7 @@ public class LinkedList<T> {
         return oldValue;
     }
 
-    public Optional<Object> delete(final int index) {
+    public Optional<T> delete(final int index) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index");
         }
