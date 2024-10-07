@@ -1,13 +1,17 @@
 package az.edu.turing.linkedlist;
 
 public class Node<T> {
-    T value;
-    Node<T> next;
+    public T value;
+    public Node<T> next;
 
     public Node() {}
 
-    public Node(T data) {
+    public Node(T value) {
+        this.value = value;
+    }
+
+    public Node(T data, Node<T> next) {
         this.value = data;
-        this.next = null;
+        this.next = next;
     }
 }

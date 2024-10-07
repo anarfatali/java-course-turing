@@ -1,20 +1,19 @@
 package az.edu.turing.linkedlist;
 
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 
 public class LinkedList<T> {
 
     private Node<T> head;
     private Node<T> tail;
-    private int size = 0;
+    private int size;
 
-    public T addHead(T t) {
+    public T addHead(final T t) {
         Node<T> newNode = new Node<>(t);
 
         if (head == null) {
-            head = newNode;
-            tail = newNode;
+            tail = head = newNode;
         } else {
             newNode.next = head;
             head = newNode;
@@ -24,19 +23,16 @@ public class LinkedList<T> {
         return head.value;
     }
 
-    public T addTail(T t) {
-        Node<T> newNode = new Node<>(t);
-
+    public void add(final T data) {
+        Node<T> newNode = new Node<>(data);
         if (head == null) {
-            head = newNode;
-            tail = newNode;
+            tail = head = newNode;
         } else {
-            newNode.next = tail;
-            tail = newNode;
+            tail.next = newNode;
+            tail = tail.next;
         }
 
         size++;
-        return tail.value;
     }
 
     public Optional<Object> removeHead() {
@@ -79,30 +75,30 @@ public class LinkedList<T> {
         return Optional.ofNullable(removed);
     }
 
-    public T insert(int index, T t) {
-        if (index < 0 || index >= size) {
+    public void insert(final int index, final T t) {
+        if (index < 0 || index > size) {
             throw new IllegalArgumentException("Invalid index");
         }
         if (index == 0) {
-            addHead(t);
+            this.addHead(t);
+            return;
         } else if (index == size) {
-            addTail(t);
+            this.add(t);
+            return;
         }
 
         Node<T> newNode = new Node<>(t);
         Node<T> current = head;
-
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index - 1; i++) {
             current = current.next;
         }
 
         newNode.next = current.next;
         current.next = newNode;
         size++;
-        return t;
     }
 
-    public T update(int index, T t) {
+    public T update(final int index, final T t) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index");
         }
@@ -116,9 +112,12 @@ public class LinkedList<T> {
         return oldValue;
     }
 
-    public T delete(int index) {
+    public Optional<Object> delete(final int index) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Invalid index");
+        }
+        if (index == 0) {
+            return removeHead();
         }
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
@@ -133,10 +132,10 @@ public class LinkedList<T> {
         }
 
         size--;
-        return previous;
+        return Optional.ofNullable(previous);
     }
 
-    public boolean delete(T t) {
+    public boolean delete(final T t) {
         if (head == null) {
             return false;
         }
@@ -169,8 +168,9 @@ public class LinkedList<T> {
     public Object[] toArray() {
         Object[] array = new Object[size];
         Node<T> current = head;
-        for (int i = 0; i < size; i++) {
-            array[i] = current.value;
+        int index = 0;
+        while (current.next != null) {
+            array[index++] = current.value;
             current = current.next;
         }
         return array;
@@ -178,6 +178,53 @@ public class LinkedList<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(toArray());
+        if (head == null) {
+            return "[]";
+        }
+
+        StringBuilder sb = new StringBuilder("[");
+        Node<T> current = head;
+
+        while (current != null) {
+            sb.append(current.value);
+            if (current.next != null) {
+                sb.append(", ");
+            }
+            current = current.next;
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(head, tail, size);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        LinkedList<?> that = (LinkedList<?>) obj;
+        if (size != that.size) {
+            return false;
+        }
+
+        Node<T> currentMine = this.head;
+        Node<?> currentForTest = that.head;
+
+        while (currentMine != null) {
+            if (!Objects.equals(currentMine.value, currentForTest.value)) {
+                return false;
+            }
+            currentMine = currentMine.next;
+            currentForTest = currentForTest.next;
+        }
+        return true;
     }
 }
