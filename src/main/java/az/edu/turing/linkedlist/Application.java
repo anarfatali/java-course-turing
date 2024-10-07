@@ -1,21 +1,23 @@
 package az.edu.turing.linkedlist;
 
 public class Application {
+
     public static void main(String[] args) {
         LinkedList<String> list = new LinkedList<>();
-        list.addHead("anar");
-        System.out.println(list);
-        list.addTail("adil");
+        list.addHead("first");
+        list.add("second");
+        list.add("third");
+        list.insert(2,"middle");
+        list.delete(1);
         System.out.println(list);
         list.removeHead();
         System.out.println(list);
         list.removeTail();
         System.out.println(list);
-        list.insert(1, "amin");
         System.out.println(list);
         list.update(2, "kamil");
         System.out.println(list);
-        list.delete(2);
+        list.delete(0);
         System.out.println(list);
         list.delete("kamil");
         System.out.println(list);
