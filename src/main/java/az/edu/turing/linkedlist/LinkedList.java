@@ -140,9 +140,13 @@ public class LinkedList<T> {
             return false;
         }
 
+        if (head.next == null) {
+            return false;
+        }
+
         Node<T> current = head;
         while (current.next != null) {
-            if (current.next.value == t) {
+            if (current.next.value.equals(t)) {
                 current.next = current.next.next;
                 if (current.next == null) {
                     tail = current;
